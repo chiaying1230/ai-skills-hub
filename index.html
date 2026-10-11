@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123f36">
+<meta name="description" content="手機友善的 AI Skills 精選：GPT/Codex、Claude Code 與 MCP，依用途、推薦度與專案需求快速尋找。">
+<title>AI Skills Hub｜找到你的下一個能力</title>
+<style>
+:root{--ink:#173c34;--green:#236450;--paper:#f6f5ef;--line:#dce3da;--muted:#5c6b63;--yellow:#f3d46b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Noto Sans TC",sans-serif}
+a{color:var(--green)}
+button,input,select{font:inherit}
+button,a,input,select{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #c08019;outline-offset:3px}
+header{border-bottom:1px solid var(--line)}
+nav{max-width:1160px;margin:auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-weight:800;letter-spacing:-.5px}
+.logo span{background:var(--ink);color:var(--yellow);border-radius:9px;padding:4px 8px;margin-right:8px}
+nav a{font-size:13px;text-decoration:none}
+.wrap{max-width:1160px;margin:auto;padding:0 20px}
+.hero{padding:44px 0 28px}
+.eyebrow{font-size:12px;letter-spacing:2px;font-weight:750;color:var(--green)}
+h1{font-size:clamp(34px,5vw,62px);line-height:1.13;letter-spacing:-2px;margin:16px 0}
+h1 em{font-style:normal;color:var(--green)}
+.intro{max-width:620px;color:var(--muted)}
+.stats{display:flex;gap:24px;padding:14px 0;font-size:13px}
+.stats b{font-size:23px;display:block}
+.starter{background:var(--ink);color:#fff;border-radius:20px;padding:23px;margin:8px 0 28px}
+.starter h2{margin:0 0 8px;font-size:20px}
+.starter p{font-size:14px;color:#d1e3d9;margin:0 0 12px}
+.starter a{color:var(--yellow)}
+.steps{display:grid;gap:10px}
+.steps div{border-top:1px solid #ffffff25;padding-top:10px}
+.steps strong{font-size:14px}
+.steps small{display:block;color:#d1e3d9}
+.controls{position:sticky;top:0;background:#f6f5eff5;backdrop-filter:blur(10px);z-index:2;padding:14px 0;border-bottom:1px solid var(--line)}
+.searchrow{display:flex;gap:10px}
+.search{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;color:var(--ink)}
+.sort{max-width:145px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;color:var(--ink)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 1px 4px;scrollbar-width:thin}
+.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:30px;padding:8px 13px;font-size:13px;cursor:pointer;min-height:42px}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.extra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px;font-size:13px}
+.extra select{padding:9px;border:1px solid var(--line);border-radius:9px;background:white;max-width:100%;color:var(--ink)}
+.extra label{display:flex;gap:6px;align-items:center;min-height:40px}
+.resultbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:25px 0 15px;font-size:13px;color:var(--muted)}
+.resultbar button{border:0;background:none;color:var(--green);text-decoration:underline;cursor:pointer;min-height:40px}
+.grid{display:grid;grid-template-columns:1fr;gap:15px}
+.card{background:white;border:1px solid var(--line);border-radius:17px;padding:21px;display:flex;flex-direction:column;min-width:0}
+.cardtop{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.kind{font-size:11px;letter-spacing:.3px;color:var(--muted);text-transform:uppercase}
+.save{background:none;border:1px solid var(--line);border-radius:50%;width:40px;height:40px;flex-shrink:0;cursor:pointer;color:var(--muted)}
+.save[aria-pressed=true]{background:var(--yellow);color:var(--ink)}
+.card h2{font-size:21px;line-height:1.3;margin:8px 0 6px;overflow-wrap:anywhere}
+.rating{font-size:13px;color:#8c6819;margin-bottom:12px}
+.card p{font-size:14px;color:var(--muted);margin:0 0 14px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font-size:11px;background:#edf2ee;padding:3px 8px;border-radius:5px}
+.match{background:#fcf0bb;color:#69500e}
+.card details{border-top:1px solid var(--line);padding-top:11px;font-size:13px;margin-bottom:14px}
+.card summary{cursor:pointer;min-height:30px}
+.card details p{font-size:13px;padding-top:7px;margin-bottom:0}
+.source{margin-top:auto;display:flex;justify-content:space-between;gap:10px;font-size:12px;align-items:center}
+.source a{font-weight:700;text-decoration:none;min-height:40px;display:flex;align-items:center}
+.source span{overflow-wrap:anywhere}
+.empty{grid-column:1/-1;text-align:center;padding:50px;color:var(--muted)}
+.guide{margin:40px 0;background:#e9eee7;border-radius:18px;padding:23px}
+.guide h2{font-size:22px;margin:0 0 13px}
+.guide details{border-top:1px solid #cdd8cc;padding:13px 0}
+.guide summary{font-weight:650;cursor:pointer}
+.guide p,.guide li{font-size:14px;color:var(--muted)}
+footer{padding:24px 0 40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:20px;top:10px;background:white;z-index:10}
+.notice{font-size:12px;color:var(--muted)}
+@media(min-width:650px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.steps{grid-template-columns:repeat(3,1fr)}
+}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hero{padding-top:58px}
+}
+@media(max-width:380px){.wrap{padding:0 14px}
+.sort{max-width:112px;font-size:13px}
+.card{padding:17px}
+}
+@media(prefers-reduced-motion:no-preference){.card{transition:transform .15s}
+.card:hover{transform:translateY(-2px)}
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#catalog">跳到工具目錄</a>
+<header>
+<nav>
+<div class="logo">
+<span>✳</span>AI Skills Hub</div>
+<a href="#guide">使用指南 ↗</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<div class="eyebrow">CURATED FOR REAL PROJECTS · 2026</div>
+<h1>找到你的<br>
+<em>下一個能力。</em>
+</h1>
+<p class="intro">把 GPT / Codex、Claude Code 與 MCP 的實用資源放在一起。少一點搜尋，多一點完成專案。</p>
+<div class="stats">
+<div>
+<b>31</b>精選資源</div>
+<div>
+<b>8</b>用途分類</div>
+<div>
+<b>4</b>專案方向</div>
+</div>
+<p class="notice">推薦度是本站依實用性、來源與專案契合度的編輯評估，並非下載量或官方評分。更新：2026-10-11。</p>
+</section>
+<section class="starter">
+<h2>✦ 你的專案，從這組開始</h2>
+<p>英文測驗網站 · 萬筆單字資料 · 短影音 HTML · Claude 實作＋Codex 審查</p>
+<div class="steps">
+<div>
+<strong>01 / 做出介面</strong>
+<small>Frontend Design ＋ Webapp Testing</small>
+</div>
+<div>
+<strong>02 / 處理大量資料</strong>
+<small>XLSX ＋ Planning with Files</small>
+</div>
+<div>
+<strong>03 / 檢查與交付</strong>
+<small>Superpowers ＋ GitHub MCP</small>
+</div>
+</div>
+</section>
+<section id="catalog" aria-label="資源目錄">
+<div class="controls">
+<div class="searchrow">
+<input id="query" class="search" type="search" placeholder="搜尋 Skill、用途、來源…" aria-label="搜尋資源">
+<select id="sort" class="sort" aria-label="排序方式">
+<option value="rating">推薦度優先</option>
+<option value="name">名稱 A–Z</option>
+</select>
+</div>
+<div id="platforms" class="chips" aria-label="平台篩選">
+</div>
+<div class="extra">
+<select id="category" aria-label="用途分類">
+<option value="all">所有用途</option>
+</select>
+<select id="project" aria-label="專案篩選">
+<option value="all">所有專案</option>
+<option value="mine">✦ 適合我的專案</option>
+<option>網站</option>
+<option>單字資料</option>
+<option>短影音</option>
+<option>程式審查</option>
+</select>
+<label>
+<input id="favorites" type="checkbox">只看收藏</label>
+</div>
+</div>
+<div class="resultbar">
+<span id="count" role="status" aria-live="polite">
+</span>
+<button id="reset" type="button">清除篩選</button>
+</div>
+<div class="grid" id="cards">
+</div>
+<noscript>請啟用 JavaScript 查看可搜尋的資源卡片。來源入口：<a href="https://github.com/openai/plugins">OpenAI</a>、<a href="https://github.com/anthropics/skills">Anthropic</a>、<a href="https://github.com/modelcontextprotocol/servers">MCP</a>。</noscript>
+</section>
+<section class="guide" id="guide">
+<h2>讓工具真正幫得上忙</h2>
+<details open>
+<summary>Skill、MCP、Hook 有什麼差別？</summary>
+<p>Skill 是做事的方法與資源；MCP 是連接外部工具的協定；Hook 是指定事件發生時執行動作的機制。目錄與配置套件也會收錄在本站，但各自有清楚標記。</p>
+</details>
+<details>
+<summary>GPT / Codex 和 Claude Code 怎麼選？</summary>
+<p>本站的 Codex 標記主要指本機 Codex／支援 Skills 的 coding 工具，並不代表貼到一般 ChatGPT 就能安裝。Claude Code 是本機開發工具。共用 SKILL.md 格式不保證腳本、權限與依賴完全相容；以來源 README 的平台說明為準。</p>
+</details>
+<details>
+<summary>如何安裝與開始使用？</summary>
+<p>開啟卡片的來源，先讀 README 與 SKILL.md，再按該工具的官方方式安裝。Claude 官方目錄提供 plugin marketplace 說明；Codex 新入口請看 OpenAI Plugins。從一個工作流與兩三個常用專業 Skills 開始。</p>
+<p>
+<a href="https://github.com/anthropics/skills" target="_blank" rel="noopener noreferrer">Claude 官方安裝說明 ↗</a> · <a href="https://github.com/openai/plugins" target="_blank" rel="noopener noreferrer">Codex 官方入口 ↗</a>
+</p>
+</details>
+<details>
+<summary>我的專案該封裝哪些規則？</summary>
+<p>以下是建議自製的 Skills，尚未提供安裝檔：</p>
+<ul>
+<li>
+<b>toefu-video：</b>1080×1920、只改 scripts/ 與 docs/、沿用 Playwright＋ffmpeg、不新增依賴。</li>
+<li>
+<b>toefu-vocabulary-data：</b>不覆寫原題庫、指定詞義的理解難度、批次輸出與人工抽查。</li>
+<li>
+<b>toefu-code-review：</b>Claude 完成後提供 diff 與測試證據，由 Codex 獨立檢查，再由你確認。</li>
+</ul>
+<p>Skill 本身不會自動啟動另一個工具；跨工具接力需要另設腳本或 Hook。</p>
+</details>
+<details>
+<summary>收藏與推薦度怎麼運作？</summary>
+<p>★★★★★：優先研究；★★★★☆：依需求選用；★★★☆☆：進階、探索或舊資源。收藏僅存在目前瀏覽器，沒有帳號同步或上傳。若瀏覽器限制儲存，收藏可在本次頁面暫時使用。</p>
+</details>
+<details>
+<summary>安裝前看哪裡？</summary>
+<p>看來源、授權、SKILL.md、scripts 與需要的存取權限。官方文件 Skills 也可能有個別授權；推薦不等於保證安全或適用。MCP 只授予任務所需的範圍。</p>
+</details>
+</section>
+</main>
+<footer>
+<div class="wrap">AI Skills Hub · 為實際專案整理的能力書籤<br>無追蹤、無外部字型、無後端。來源與安裝方式可能改變，請以各專案最新 README 為準。<br>
+<a href="https://github.com/chiaying1230/ai-skills-hub">查看網站原始碼 ↗</a>
+</div>
+</footer>
+<script>
+const data=[
+  {
+    "id": 1,
+    "name": "OpenAI Plugins",
+    "platform": [
+      "Codex"
+    ],
+    "category": "官方入口",
+    "type": "目錄",
+    "rating": 5,
+    "owner": "OpenAI",
+    "url": "https://github.com/openai/plugins",
+    "description": "目前官方插件與 Skills 範例入口。適合從官方套件開始挑選能力。",
+    "projects": [
+      "網站",
+      "程式審查"
+    ],
+    "note": "依 README 選擇對應插件；ChatGPT 可用能力與本機 Codex 不一定相同。"
+  },
+  {
+    "id": 2,
+    "name": "OpenAI Skills（舊目錄）",
+    "platform": [
+      "Codex"
+    ],
+    "category": "官方入口",
+    "type": "目錄",
+    "rating": 3,
+    "owner": "OpenAI",
+    "url": "https://github.com/openai/skills",
+    "description": "官方舊 Skills 倉庫已標示 deprecated；可讀範例，新的入口請看 OpenAI Plugins。",
+    "projects": [],
+    "note": "僅供既有內容參考，不作為新安裝第一選擇。"
+  },
+  {
+    "id": 3,
+    "name": "Anthropic Skills",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "官方入口",
+    "type": "目錄",
+    "rating": 5,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills",
+    "description": "官方 Skills 集合，包含設計、文件、測試與建立 Skill 的範例。",
+    "projects": [
+      "網站",
+      "單字資料",
+      "短影音"
+    ],
+    "note": "從 README 選擇需要的套件；不要一次裝整個目錄。"
+  },
+  {
+    "id": 4,
+    "name": "Agent Skills 標準",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "官方入口",
+    "type": "文件",
+    "rating": 5,
+    "owner": "Agent Skills",
+    "url": "https://agentskills.io/",
+    "description": "了解 SKILL.md、資源檔與漸進式載入，建立可重用的專案規則。",
+    "projects": [
+      "程式審查",
+      "短影音",
+      "單字資料"
+    ],
+    "note": "先看規格，再依各工具的 Skills 支援方式安裝。"
+  },
+  {
+    "id": 5,
+    "name": "Superpowers",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "程式工程",
+    "type": "Skill 套件",
+    "rating": 5,
+    "owner": "obra",
+    "url": "https://github.com/obra/superpowers",
+    "description": "以需求釐清、規劃、測試、除錯與驗證組成工程工作流。",
+    "projects": [
+      "網站",
+      "程式審查"
+    ],
+    "note": "適合 Claude 實作後交 Codex 檢查；兩個工具需各自設定，不會自動跨工具接力。"
+  },
+  {
+    "id": 6,
+    "name": "Planning with Files",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "規劃自動化",
+    "type": "Skill",
+    "rating": 5,
+    "owner": "OthmanAdi",
+    "url": "https://github.com/OthmanAdi/planning-with-files",
+    "description": "把計畫、發現與進度留在 Markdown，方便長任務中斷後繼續。",
+    "projects": [
+      "單字資料",
+      "網站"
+    ],
+    "note": "一萬筆以上資料處理可記錄批次、進度與待覆核項目。"
+  },
+  {
+    "id": 7,
+    "name": "Frontend Design",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "介面設計",
+    "type": "Skill",
+    "rating": 5,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/frontend-design",
+    "description": "建立有明確視覺方向的網頁與前端介面。",
+    "projects": [
+      "網站",
+      "短影音"
+    ],
+    "note": "適合單字測驗結果頁與 1080×1920 HTML 字卡；仍需實際檢查字級與溢出。"
+  },
+  {
+    "id": 8,
+    "name": "Webapp Testing",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "測試除錯",
+    "type": "Skill",
+    "rating": 5,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/webapp-testing",
+    "description": "以 Playwright 驗證網頁行為、觀察畫面及瀏覽器紀錄。",
+    "projects": [
+      "網站",
+      "短影音"
+    ],
+    "note": "測搜尋、測驗、結果頁；影片 renderer 可用截圖確認版面。"
+  },
+  {
+    "id": 9,
+    "name": "UI/UX Pro Max",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "介面設計",
+    "type": "Skill 套件",
+    "rating": 4,
+    "owner": "nextlevelbuilder",
+    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "description": "提供 UI/UX 設計參考與工作流，協助選擇排版、配色與元件。",
+    "projects": [
+      "網站",
+      "短影音"
+    ],
+    "note": "當成設計輔助，保留既有品牌與吉祥物。"
+  },
+  {
+    "id": 10,
+    "name": "XLSX",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "資料文件",
+    "type": "Skill",
+    "rating": 5,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/xlsx",
+    "description": "讀寫與分析 Excel、CSV 和表格資料。",
+    "projects": [
+      "單字資料"
+    ],
+    "note": "保留原始題庫，另存評分輸出；理解難度評分仍要設計尺度與人工抽查。"
+  },
+  {
+    "id": 11,
+    "name": "DOCX",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "資料文件",
+    "type": "Skill",
+    "rating": 4,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/docx",
+    "description": "建立與編輯 Word 文件，處理格式與文件內容。",
+    "projects": [],
+    "note": "適合教案、心得與報告；依技能目錄的授權條款使用。"
+  },
+  {
+    "id": 12,
+    "name": "PDF",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "資料文件",
+    "type": "Skill",
+    "rating": 4,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/pdf",
+    "description": "讀取、產生與操作 PDF 文件。",
+    "projects": [],
+    "note": "適合教材與資料整理；掃描文件可能需要 OCR。"
+  },
+  {
+    "id": 13,
+    "name": "PPTX",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "資料文件",
+    "type": "Skill",
+    "rating": 4,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+    "description": "建立及編輯簡報，整理教學與專案成果。",
+    "projects": [],
+    "note": "完成後仍要逐頁檢查字級、截斷與版面。"
+  },
+  {
+    "id": 14,
+    "name": "Skill Creator",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "規劃自動化",
+    "type": "Skill",
+    "rating": 5,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
+    "description": "把固定需求與工作流整理成可重用的 Skill。",
+    "projects": [
+      "短影音",
+      "單字資料",
+      "程式審查"
+    ],
+    "note": "優先封裝專案的檔案範圍、驗證規則與輸出格式。"
+  },
+  {
+    "id": 15,
+    "name": "MCP Builder",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "工具連接",
+    "type": "Skill",
+    "rating": 4,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/mcp-builder",
+    "description": "協助建立 MCP server，把 API 包裝成 Agent 可呼叫的工具。",
+    "projects": [],
+    "note": "需要客製資料工具時再研究；一般靜態網站不必先建立 MCP。"
+  },
+  {
+    "id": 16,
+    "name": "Canvas Design",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "介面設計",
+    "type": "Skill",
+    "rating": 4,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/canvas-design",
+    "description": "建立靜態視覺作品與設計稿。",
+    "projects": [
+      "短影音"
+    ],
+    "note": "適合字卡視覺探索；不是逐格影片輸出工具。"
+  },
+  {
+    "id": 17,
+    "name": "Theme Factory",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "介面設計",
+    "type": "Skill",
+    "rating": 4,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/theme-factory",
+    "description": "以主題統一文件、簡報與 HTML 作品的視覺。",
+    "projects": [
+      "短影音",
+      "網站"
+    ],
+    "note": "將品牌黃色與分級配色整理成一致的 tokens。"
+  },
+  {
+    "id": 18,
+    "name": "Web Artifacts Builder",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "介面設計",
+    "type": "Skill",
+    "rating": 4,
+    "owner": "Anthropic",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder",
+    "description": "協助製作較複雜的網頁 artifacts。",
+    "projects": [
+      "網站"
+    ],
+    "note": "依現有專案技術選用；影片流程要求不新增依賴時不要直接套用新框架。"
+  },
+  {
+    "id": 19,
+    "name": "ECC（Everything Claude Code）",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "規劃自動化",
+    "type": "配置套件",
+    "rating": 4,
+    "owner": "affaan-m",
+    "url": "https://github.com/affaan-m/ECC",
+    "description": "集合 Skills、規則與自動化配置，適合研究 Agent 工作流。",
+    "projects": [
+      "程式審查"
+    ],
+    "note": "原 everything-claude-code 已轉向 ECC。只選需要的部分，先讀 hooks 行為。"
+  },
+  {
+    "id": 20,
+    "name": "Scientific Agent Skills",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "研究分析",
+    "type": "Skill 套件",
+    "rating": 3,
+    "owner": "K-Dense-AI",
+    "url": "https://github.com/K-Dense-AI/claude-scientific-skills",
+    "description": "科學研究相關工具與分析 Skills 集合。",
+    "projects": [],
+    "note": "依研究領域選用；不將科學工具直接當成英文單字難度評分標準。"
+  },
+  {
+    "id": 21,
+    "name": "Playwright MCP",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "測試除錯",
+    "type": "MCP",
+    "rating": 5,
+    "owner": "Microsoft",
+    "url": "https://github.com/microsoft/playwright-mcp",
+    "description": "透過 MCP 操作瀏覽器並讀取可近性快照。",
+    "projects": [
+      "網站",
+      "短影音"
+    ],
+    "note": "驗證 UI 的好選擇；本機工具不等同這裡的 Cloud Browser。"
+  },
+  {
+    "id": 22,
+    "name": "Playwright CLI + Skills",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "測試除錯",
+    "type": "CLI / Skills",
+    "rating": 5,
+    "owner": "Microsoft",
+    "url": "https://github.com/microsoft/playwright-cli",
+    "description": "以 CLI 執行瀏覽器操作、觀察與截圖，搭配 Skills 使用。",
+    "projects": [
+      "網站",
+      "短影音"
+    ],
+    "note": "依 README 比較 CLI 與 MCP；選與既有 Playwright 流程相容的方式。"
+  },
+  {
+    "id": 23,
+    "name": "GitHub MCP Server",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "工具連接",
+    "type": "MCP",
+    "rating": 5,
+    "owner": "GitHub",
+    "url": "https://github.com/github/github-mcp-server",
+    "description": "連接 GitHub，讀取 repository、處理 issues、PR 與工作流。",
+    "projects": [
+      "網站",
+      "程式審查"
+    ],
+    "note": "讀取與寫入權限不同；遇 403 要確認授權與 repo 權限。"
+  },
+  {
+    "id": 24,
+    "name": "Context7",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "工具連接",
+    "type": "MCP / 平台",
+    "rating": 4,
+    "owner": "Upstash",
+    "url": "https://github.com/upstash/context7",
+    "description": "把函式庫文件與程式範例提供給 AI coding 工具。",
+    "projects": [
+      "網站"
+    ],
+    "note": "查 API 時選正確版本，避免把舊版寫法套到現有專案。"
+  },
+  {
+    "id": 25,
+    "name": "MCP Reference Servers",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "工具連接",
+    "type": "MCP 目錄",
+    "rating": 4,
+    "owner": "Model Context Protocol",
+    "url": "https://github.com/modelcontextprotocol/servers",
+    "description": "官方參考 server 集合，可研究 Filesystem 等工具的實作。",
+    "projects": [
+      "單字資料"
+    ],
+    "note": "參考實作不等於每個 server 都適合 production；限制檔案存取範圍。"
+  },
+  {
+    "id": 26,
+    "name": "Awesome Agent Skills",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "探索目錄",
+    "type": "目錄",
+    "rating": 4,
+    "owner": "VoltAgent",
+    "url": "https://github.com/VoltAgent/awesome-agent-skills",
+    "description": "跨工具的 Skills 導航，適合依主題找候選來源。",
+    "projects": [],
+    "note": "這是索引，個別 Skill 的維護與相容性需再確認。"
+  },
+  {
+    "id": 27,
+    "name": "Awesome Claude Code",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "探索目錄",
+    "type": "目錄",
+    "rating": 4,
+    "owner": "hesreallyhim",
+    "url": "https://github.com/hesreallyhim/awesome-claude-code",
+    "description": "收錄 Claude Code 的 Skills、hooks、commands 與工具。",
+    "projects": [],
+    "note": "用來探索；以每個專案 README 作為安裝依據。"
+  },
+  {
+    "id": 28,
+    "name": "Awesome Claude Skills",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "探索目錄",
+    "type": "目錄",
+    "rating": 3,
+    "owner": "ComposioHQ",
+    "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "description": "社群 Skills 集合，依需要挑選工作流。",
+    "projects": [],
+    "note": "收錄不代表官方審核，不建議整包安裝。"
+  },
+  {
+    "id": 29,
+    "name": "Awesome Claude Code Subagents",
+    "platform": [
+      "Claude Code"
+    ],
+    "category": "程式工程",
+    "type": "角色目錄",
+    "rating": 3,
+    "owner": "VoltAgent",
+    "url": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "description": "提供不同工程角色的 subagent 範例與配置。",
+    "projects": [
+      "程式審查"
+    ],
+    "note": "Subagent 不是 Skill；可參考 reviewer 角色，但要控制成本與分工。"
+  },
+  {
+    "id": 30,
+    "name": "Antigravity Awesome Skills",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "探索目錄",
+    "type": "目錄",
+    "rating": 3,
+    "owner": "sickn33",
+    "url": "https://github.com/sickn33/antigravity-awesome-skills",
+    "description": "大型 Skills 集合，適合尋找特定任務的候選項目。",
+    "projects": [],
+    "note": "每個 Skill 的指令與相容性分別查核，避免大量重複安裝。"
+  },
+  {
+    "id": 31,
+    "name": "Awesome MCP Servers",
+    "platform": [
+      "Codex",
+      "Claude Code"
+    ],
+    "category": "探索目錄",
+    "type": "MCP 目錄",
+    "rating": 4,
+    "owner": "punkpeye",
+    "url": "https://github.com/punkpeye/awesome-mcp-servers",
+    "description": "依服務與功能探索 MCP servers。",
+    "projects": [],
+    "note": "選工具前確認官方来源、權限與是否需要外部帳號。"
+  }
+];
+const $=id=>document.getElementById(id);let platform='all';let saved=new Set();try{saved=new Set(JSON.parse(localStorage.getItem('ai-skills-hub-favorites')||'[]'))}catch(e){}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+[['all','全部'],['Codex','GPT / Codex'],['Claude Code','Claude Code'],['MCP','MCP']].forEach(([v,label])=>{const b=document.createElement('button');b.className='chip';b.type='button';b.textContent=label;b.dataset.value=v;b.setAttribute('aria-pressed',v===platform);b.onclick=()=>{platform=v;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.value===v));render()};$('platforms').append(b)});
+[...new Set(data.map(x=>x.category))].forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;$('category').append(o)});
+function render(){const q=$('query').value.trim().toLocaleLowerCase(),category=$('category').value,project=$('project').value;let list=data.filter(x=>(platform==='all'||(platform==='MCP'?x.type.includes('MCP'):x.platform.includes(platform)))&&(category==='all'||x.category===category)&&(project==='all'||(project==='mine'?x.projects.length>0:x.projects.includes(project)))&&(!$('favorites').checked||saved.has(x.id))&&(!q||[x.name,x.description,x.owner,x.type,x.category,x.note,...x.platform,...x.projects].join(' ').toLocaleLowerCase().includes(q)));list.sort($('sort').value==='name'?(a,b)=>a.name.localeCompare(b.name):(a,b)=>b.rating-a.rating||a.id-b.id);$('count').textContent=list.length+' / '+data.length+' 個資源';$('cards').innerHTML=list.length?list.map(x=>'<article class="card"><div class="cardtop"><div><span class="kind">'+esc(x.category)+' · '+esc(x.type)+'</span><h2>'+esc(x.name)+'</h2></div><button type="button" class="save" data-id="'+x.id+'" aria-pressed="'+saved.has(x.id)+'" aria-label="收藏 '+esc(x.name)+'">'+(saved.has(x.id)?'★':'☆')+'</button></div><div class="rating" aria-label="推薦度 '+x.rating+' 顆星">'+'★'.repeat(x.rating)+'☆'.repeat(5-x.rating)+' · 編輯推薦</div><p>'+esc(x.description)+'</p><div class="tags">'+x.platform.map(t=>'<span class="tag">'+esc(t)+'</span>').join('')+x.projects.map(t=>'<span class="tag match">✦ '+esc(t)+'</span>').join('')+'</div><details><summary>怎麼用在我的工作？</summary><p>'+esc(x.note)+'</p></details><div class="source"><span>'+esc(x.owner)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer" aria-label="查看 '+esc(x.name)+' 來源（新分頁）">來源與安裝 ↗</a></div></article>').join(''):'<div class="empty">沒有符合的資源。試試其他關鍵字，或清除篩選。</div>';
+$('cards').querySelectorAll('.save').forEach(b=>b.onclick=()=>{const id=Number(b.dataset.id);saved.has(id)?saved.delete(id):saved.add(id);try{localStorage.setItem('ai-skills-hub-favorites',JSON.stringify([...saved]))}catch(e){}if($('favorites').checked){render()}else{b.setAttribute('aria-pressed',saved.has(id));b.textContent=saved.has(id)?'★':'☆'}})}
+['query','sort','category','project','favorites'].forEach(id=>$(id).addEventListener(id==='query'?'input':'change',render));$('reset').onclick=()=>{$('query').value='';$('category').value='all';$('project').value='all';$('favorites').checked=false;$('sort').value='rating';platform='all';document.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.value==='all'));render()};render();
+</script></body></html>
